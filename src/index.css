@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dopamine Colors */
+  --color-primary: #8b5cf6;    /* Electric Violet */
+  --color-secondary: #06b6d4;  /* Cyan */
+  --color-accent: #f472b6;     /* Neon Pink */
+  --color-bg-dark: #0f172a;    /* Navy Blue (Dark bg) */
+  --color-success: #10b981;    /* Emerald */
+  --color-warning: #f59e0b;    /* Amber */
+
+  --font-sans: "Inter", "system-ui", "-apple-system", sans-serif;
+  
+  --animate-bounce-custom: bounce-custom 1s infinite;
+  
+  @keyframes bounce-custom {
+    0%, 100% {
+      transform: translateY(-5%) scale(1.05);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0) scale(1);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}
+
+:root {
+  background-color: var(--color-bg-dark);
+  color: white;
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Neon glow utility */
+.neon-border {
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary), inset 0 0 5px var(--color-primary);
+}
+
+.neon-text {
+  text-shadow: 0 0 10px var(--color-primary);
+}

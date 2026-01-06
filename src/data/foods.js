@@ -1,0 +1,18 @@
+export const DEFAULT_FOODS = [
+    { id: '1', name: '超厚汉堡', image: '🍔', color: '#FF6B6B' },
+    { id: '2', name: '极品寿司', image: '🍣', color: '#4ECDC4' },
+    { id: '3', name: '麻辣火锅', image: '🍲', color: '#FF4757' },
+    { id: '4', name: '经典披萨', image: '🍕', color: '#FFA502' },
+    { id: '5', name: '灵魂炸鸡', image: '🍗', color: '#ECCC68' },
+    { id: '6', name: '秘制拉面', image: '🍜', color: '#70A1FF' },
+    { id: '7', name: '多汁牛排', image: '🥩', color: '#A29BFE' },
+    { id: '8', name: '爽滑凉粉', image: '🍧', color: '#7BED9F' },
+    { id: '9', name: '黄金蛋炒饭', image: '🍚', color: '#FFD32A' },
+    { id: '10', name: '脆皮烧鹅', image: '🦢', color: '#FF7F50' },
+    { id: '11', name: '香辣烤鱼', image: '🐟', color: '#5758BB' },
+    { id: '12', name: '经典煎蛋', image: '🍳', color: '#F7D794' },
+    { id: '13', name: '墨西哥卷', image: '🌯', color: '#32FF7E' },
+    { id: '14', name: '热腾馒头', image: '🥟', color: '#F1F2F6' },
+    { id: '15', name: '鲜甜海鲜', image: '🦞', color: '#2E86DE' },
+    { id: '16', name: '麻辣香锅', image: '🥘', color: '#EB4D4B' },
+];
