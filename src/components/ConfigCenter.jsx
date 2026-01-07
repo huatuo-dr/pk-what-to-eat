@@ -177,15 +177,15 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                                 </h3>
                                                 <button onClick={() => setEditingIndex(null)} className="px-4 py-1 bg-white/10 rounded-lg text-[10px] font-black uppercase text-white/50 hover:bg-white/20 transition-colors">取消</button>
                                             </div>
-                                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
                                                 {localLibrary.map(f => (
                                                     <button
                                                         key={f.id}
                                                         onClick={() => handleReplaceActive(editingIndex, f)}
-                                                        className="flex items-center gap-3 p-3 glass rounded-xl border border-transparent hover:border-primary transition-all group active:scale-95"
+                                                        className="h-12 flex items-center justify-center px-3 glass rounded-xl border border-transparent hover:border-primary transition-all group active:scale-95 relative overflow-hidden"
                                                     >
-                                                        <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5 text-lg shrink-0" style={{ background: `${f.color}44` }}>{f.image}</div>
-                                                        <span className="font-bold text-xs truncate text-white/70">{f.name}</span>
+                                                        <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity" style={{ backgroundColor: f.color }} />
+                                                        <span className="font-black text-[11px] uppercase truncate relative z-10 text-white/80 w-full text-center">{f.name}</span>
                                                     </button>
                                                 ))}
                                             </div>
@@ -194,7 +194,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                         <div className="space-y-12">
                                             {/* Add New */}
                                             <div className={cn("glass p-6 rounded-[2.5rem] border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-inner relative transition-all", isEmojiPickerOpen && "z-30")}>
-                                                <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] mb-4">实验室：添加食物</h3>
+                                                <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] mb-4">添加食物</h3>
                                                 <div className="flex flex-col md:flex-row gap-6 relative">
                                                     {/* Custom Dropdown Emoji Picker */}
                                                     <div className="relative w-full md:w-32">
@@ -252,7 +252,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                                             onClick={handleAddCustom}
                                                             className="w-full bg-primary hover:bg-primary/80 py-4 rounded-2xl font-black italic uppercase shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2"
                                                         >
-                                                            <Plus className="w-5 h-5" /> 合成食物
+                                                            <Plus className="w-5 h-5" /> 添加
                                                         </button>
                                                     </div>
                                                 </div>
@@ -263,12 +263,17 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                                 <div className="flex justify-between items-end">
                                                     <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em]">我的食物库 ({localLibrary.length})</h3>
                                                 </div>
-                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pb-8">
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pb-8">
                                                     {localLibrary.map(f => (
-                                                        <div key={f.id} className="flex items-center gap-3 p-3 glass rounded-2xl group border border-white/5 bg-white/5 hover:bg-white/[0.08] transition-all">
-                                                            <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl bg-white/5 shrink-0" style={{ background: `${f.color}22`, border: `1px solid ${f.color}44` }}>{f.image}</div>
-                                                            <span className="flex-1 font-bold text-xs truncate text-white/60">{f.name}</span>
-                                                            <button onClick={() => handleRemoveFromLibrary(f.id)} className="p-2 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 text-red-500 rounded-lg transition-all"><Trash2 className="w-4 h-4" /></button>
+                                                        <div key={f.id} className="h-12 flex items-center justify-center px-3 glass rounded-xl group border border-white/5 bg-white/5 hover:bg-white/[0.08] transition-all relative overflow-hidden">
+                                                            <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity" style={{ backgroundColor: f.color }} />
+                                                            <span className="font-black text-[11px] uppercase truncate relative z-10 text-white/80 w-full text-center">{f.name}</span>
+                                                            <button
+                                                                onClick={() => handleRemoveFromLibrary(f.id)}
+                                                                className="absolute top-1 right-1 p-1 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 text-red-500 rounded-lg transition-all z-20"
+                                                            >
+                                                                <Trash2 className="w-3 h-3" />
+                                                            </button>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -285,7 +290,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                 onClick={() => onSave({ library: localLibrary, activeList: localActiveList, settings: localSettings })}
                                 className="flex-1 bg-primary hover:bg-primary/80 py-6 rounded-[2rem] font-black text-2xl flex items-center justify-center gap-4 transition-all active:scale-95 shadow-[0_0_50px_rgba(139,92,246,0.3)] shadow-primary/20 animate-pulse-slow"
                             >
-                                启动派对！ <ChevronRight className="w-8 h-8" />
+                                开始PK！ <ChevronRight className="w-8 h-8" />
                             </button>
                         </div>
                     </motion.div>
