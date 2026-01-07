@@ -80,9 +80,9 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                         </div>
 
                         {/* Layout: Sidebar Settings | Main Workbench */}
-                        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                        <div className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
                             {/* Left: Global Config */}
-                            <div className="w-full md:w-80 border-r border-white/5 p-8 space-y-10 overflow-y-auto bg-white/[0.02]">
+                            <div className="w-full md:w-80 md:border-r border-b md:border-b-0 border-white/5 p-8 space-y-10 md:overflow-y-auto bg-white/[0.02]">
                                 <section className="space-y-6">
                                     <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] flex items-center gap-2">
                                         <Users className="w-4 h-4" /> 对决规模
@@ -134,7 +134,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                             </div>
 
                             {/* Center/Right: Workbench */}
-                            <div className="flex-1 flex flex-col overflow-hidden">
+                            <div className="flex-none md:flex-1 flex flex-col md:overflow-hidden">
                                 {/* Workbench Header: Active List grid */}
                                 <div className="p-8 space-y-4 bg-white/[0.01]">
                                     <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em]">
@@ -168,7 +168,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                 </div>
 
                                 {/* Main Library Section */}
-                                <div className="flex-1 overflow-y-auto p-8 border-t border-white/5">
+                                <div className="flex-none md:flex-1 md:overflow-y-auto p-8 border-t border-white/5">
                                     {editingIndex !== null ? (
                                         <div className="space-y-6">
                                             <div className="flex justify-between items-center bg-primary/5 p-4 rounded-2xl border border-primary/10">
