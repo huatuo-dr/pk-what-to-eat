@@ -33,17 +33,17 @@ export function ResultShare({ winner, history, onBack }) {
         }
 
         return (
-            <div key={`${roundIndex}-${isRight}`} className="flex flex-col justify-around gap-2 h-full py-4">
+            <div key={`${roundIndex}-${isRight}`} className="flex flex-col justify-around gap-2 h-full py-2">
                 {displayItems.map((food, i) => (
                     <div
                         key={`${roundIndex}-${food?.id || i}`}
                         className={cn(
-                            "flex items-center gap-2 p-1.5 glass rounded-lg border border-white/5 min-w-[70px]",
+                            "flex items-center gap-2 p-1.5 glass rounded-xl border border-white/5 min-w-[95px]",
                             isRight && "flex-row-reverse text-right"
                         )}
                     >
-                        <span className="text-sm shrink-0">{food?.image || '?'}</span>
-                        <span className="text-[7px] font-black uppercase truncate max-w-[45px] opacity-70">
+                        <span className="text-xl shrink-0">{food?.image || '?'}</span>
+                        <span className="text-[10px] font-black uppercase truncate max-w-[60px] opacity-70">
                             {food?.name || '---'}
                         </span>
                     </div>
@@ -62,12 +62,12 @@ export function ResultShare({ winner, history, onBack }) {
     }
 
     return (
-        <div className="flex flex-col items-center gap-6 w-full max-w-4xl mx-auto pb-12">
-            {/* Poster Container */}
-            <div className="relative p-2 rounded-[2.5rem] bg-gradient-to-br from-primary/30 to-accent/30 shadow-2xl">
+        <div className="flex flex-col items-center gap-6 w-full max-w-[95vw] mx-auto pb-12 overflow-x-auto">
+            {/* Poster Container - Use scale to fit onto smaller screens in preview */}
+            <div className="relative p-3 rounded-[3rem] bg-gradient-to-br from-primary/30 to-accent/30 shadow-2xl origin-top sm:scale-75 md:scale-90 lg:scale-100">
                 <div
                     ref={shareRef}
-                    className="w-[360px] h-[640px] bg-[#0b0f1a] p-6 flex flex-col items-center relative overflow-hidden text-white"
+                    className="w-[1200px] h-[675px] bg-[#0b0f1a] p-12 flex flex-col items-center relative overflow-hidden text-white"
                 >
                     {/* Background FX */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(139,92,246,0.15)_0%,transparent_70%)]" />
@@ -75,64 +75,61 @@ export function ResultShare({ winner, history, onBack }) {
                     <div className="relative z-10 w-full h-full flex flex-col">
                         {/* Poster Header */}
                         <div className="text-center mb-8">
-                            <div className="inline-block px-3 py-1 bg-primary/20 rounded-full text-[8px] font-black tracking-[0.4em] uppercase text-primary border border-primary/20 mb-3">
+                            <div className="inline-block px-4 py-1.5 bg-primary/20 rounded-full text-[10px] font-black tracking-[0.5em] uppercase text-primary border border-primary/20 mb-3">
                                 Battle Report
                             </div>
-                            <h1 className="text-3xl font-black italic neon-text uppercase leading-none tracking-tighter">
+                            <h1 className="text-6xl font-black italic neon-text uppercase leading-none tracking-tighter">
                                 Divine <span className="text-accent">Decision</span>
                             </h1>
                         </div>
 
                         {/* Symmetrical Bracket Map */}
-                        <div className="flex-1 flex items-center justify-between w-full h-full gap-1">
+                        <div className="flex-1 flex items-center justify-between w-full h-full gap-3 px-2">
                             {/* Left Tree */}
-                            <div className="flex gap-1 h-full items-center">
-                                {renderRound(history[0], 0, 8, 0)}
-                                {renderRound(history[1], 0, 4, 1)}
-                                {renderRound(history[2], 0, 2, 2)}
-                                {/* Semifinal Level ( history[3] exists only if 2 rounds done ) */}
-                                {history[3] && renderRound(history[3], 0, 1, 3)}
+                            <div className="flex gap-3 h-full items-center">
+                                {history.slice(0, -1).map((roundFoods, idx) => (
+                                    renderRound(roundFoods, 0, roundFoods.length / 2, idx)
+                                ))}
                             </div>
 
                             {/* Center: Champion */}
-                            <div className="flex flex-col items-center justify-center z-20">
+                            <div className="flex flex-col items-center justify-center z-20 shrink-0">
                                 <div className="relative mb-6 group">
                                     <div className="absolute inset-0 bg-primary/40 blur-3xl group-hover:bg-primary/60 transition-colors" />
-                                    <div className="relative w-28 h-28 rounded-[2.5rem] bg-gradient-to-br from-primary via-accent to-secondary p-1 rotate-12">
-                                        <div className="w-full h-full bg-[#0b0f1a] rounded-[2.2rem] flex items-center justify-center text-6xl">
+                                    <div className="relative w-44 h-44 rounded-[3.5rem] bg-gradient-to-br from-primary via-accent to-secondary p-1 rotate-6">
+                                        <div className="w-full h-full bg-[#0b0f1a] rounded-[3.2rem] flex items-center justify-center text-8xl">
                                             {winner.image}
                                         </div>
                                     </div>
-                                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-warning rounded-full flex items-center justify-center text-2xl shadow-lg border-2 border-white animate-bounce-custom">
+                                    <div className="absolute -top-6 -right-6 w-16 h-16 bg-warning rounded-full flex items-center justify-center text-3xl shadow-lg border-4 border-white animate-bounce-custom">
                                         🏆
                                     </div>
                                 </div>
 
-                                <div className="text-center max-w-[120px]">
-                                    <div className="text-[7px] font-black text-primary uppercase tracking-[0.3em] mb-1">天选之食</div>
-                                    <div className="text-2xl font-black italic neon-text leading-tight uppercase">
+                                <div className="text-center">
+                                    <div className="text-[10px] font-black text-primary uppercase tracking-[0.4em] mb-2">天选之食</div>
+                                    <div className="text-5xl font-black italic neon-text leading-tight uppercase">
                                         {winner.name}
                                     </div>
                                 </div>
                             </div>
 
                             {/* Right Tree (Mirror) */}
-                            <div className="flex gap-1 h-full items-center">
-                                {history[3] && renderRound(history[3], 1, 1, 3, true)}
-                                {renderRound(history[2], 2, 2, 2, true)}
-                                {renderRound(history[1], 4, 4, 1, true)}
-                                {renderRound(history[0], 8, 8, 0, true)}
+                            <div className="flex gap-3 h-full items-center flex-row-reverse">
+                                {history.slice(0, -1).map((roundFoods, idx) => (
+                                    renderRound(roundFoods, roundFoods.length / 2, roundFoods.length / 2, idx, true)
+                                ))}
                             </div>
                         </div>
 
                         {/* Footer / QR Style */}
-                        <div className="mt-8 pt-4 border-t border-white/5 flex justify-between items-end">
-                            <div className="space-y-1">
-                                <div className="text-[10px] font-black italic text-secondary tracking-widest uppercase">PK WHAT TO EET</div>
-                                <div className="text-[6px] text-white/30 font-bold">BY DOPAMINE DECISION ENGINE</div>
+                        <div className="mt-8 pt-6 border-t border-white/5 flex justify-between items-end">
+                            <div className="space-y-1.5">
+                                <div className="text-sm font-black italic text-secondary tracking-[0.2em] uppercase">PK WHAT TO EATER</div>
+                                <div className="text-[8px] text-white/30 font-bold">BY DOPAMINE DECISION ENGINE // VERSION 2.0</div>
                             </div>
-                            <div className="text-[6px] text-white/20 text-right uppercase font-mono italic">
-                                GENERATE ID // {(Math.random() + 1).toString(36).substring(7).toUpperCase()}
+                            <div className="text-[8px] text-white/20 text-right uppercase font-mono italic">
+                                SESSION IDENTIFIER // {Math.random().toString(36).substring(7).toUpperCase()}
                             </div>
                         </div>
                     </div>

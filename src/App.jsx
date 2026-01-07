@@ -3,7 +3,7 @@ import { Utensils, Trophy, Share2, Settings, Play, RefreshCw, Plus } from 'lucid
 import { motion, AnimatePresence } from 'framer-motion'
 import { DEFAULT_FOODS } from './data/foods'
 import { PKArena } from './components/PKArena'
-import { FoodManager } from './components/FoodManager'
+import { ConfigCenter } from './components/ConfigCenter'
 import { ResultShare } from './components/ResultShare'
 import { cn } from './utils/ui'
 
@@ -13,47 +13,61 @@ const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
 function App() {
   const [gameState, setGameState] = useState('home'); // home, pk, result
   const [allFoods, setAllFoods] = useState(DEFAULT_FOODS);
+  const [activePKList, setActivePKList] = useState([]);
+  const [pkSettings, setPkSettings] = useState({ size: 16, duration: 5 });
+
   const [currentRound, setCurrentRound] = useState([]); // Array of pairs
   const [nextRoundWinners, setNextRoundWinners] = useState([]);
   const [currentPairIndex, setCurrentPairIndex] = useState(0);
   const [winner, setWinner] = useState(null);
-  const [countdown, setCountdown] = useState(100); // 0-100 percentage
-  const [history, setHistory] = useState([]); // To track brackets
-  const [isFoodManagerOpen, setIsFoodManagerOpen] = useState(false);
+  const [countdown, setCountdown] = useState(100);
+  const [history, setHistory] = useState([]);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isShareMode, setIsShareMode] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Load from LocalStorage
   useEffect(() => {
-    const saved = localStorage.getItem('pk_foods');
-    if (saved) {
+    const savedFoods = localStorage.getItem('pk_foods');
+    if (savedFoods) {
       try {
-        setAllFoods(JSON.parse(saved));
+        setAllFoods(JSON.parse(savedFoods));
       } catch (e) {
         console.error("Failed to load foods", e);
       }
     }
+
+    const savedSettings = localStorage.getItem('pk_settings');
+    if (savedSettings) {
+      try {
+        setPkSettings(JSON.parse(savedSettings));
+      } catch (e) {
+        console.error("Failed to load settings", e);
+      }
+    }
   }, []);
 
-  const saveFoods = (newFoods) => {
-    setAllFoods(newFoods);
-    localStorage.setItem('pk_foods', JSON.stringify(newFoods));
-    setIsFoodManagerOpen(false);
+  const handleConfigSave = ({ library, activeList, settings }) => {
+    setAllFoods(library);
+    setActivePKList(activeList);
+    setPkSettings(settings);
+    localStorage.setItem('pk_foods', JSON.stringify(library));
+    localStorage.setItem('pk_settings', JSON.stringify(settings));
+
+    // Start Battle with confirmed data
+    initiateBattle(activeList);
+    setIsConfigOpen(false);
   };
 
-  const timerRef = useRef(null);
-
-  // Start PK Logic
-  const startPK = () => {
-    const selected = shuffle(allFoods).slice(0, 16);
+  const initiateBattle = (list) => {
     const pairs = [];
-    for (let i = 0; i < selected.length; i += 2) {
-      pairs.push([selected[i], selected[i + 1]]);
+    for (let i = 0; i < list.length; i += 2) {
+      pairs.push([list[i], list[i + 1]]);
     }
     setCurrentRound(pairs);
     setNextRoundWinners([]);
     setCurrentPairIndex(0);
-    setHistory([selected]); // Round 1
+    setHistory([list]);
     setIsShareMode(false);
     setGameState('pk');
   };
@@ -79,9 +93,13 @@ function App() {
         setIsProcessing(false);
       } else {
         const nextPairs = [];
+        // Support odd number of foods by promoting the last person automatically
         for (let i = 0; i < currentWinners.length; i += 2) {
           if (currentWinners[i] && currentWinners[i + 1]) {
             nextPairs.push([currentWinners[i], currentWinners[i + 1]]);
+          } else if (currentWinners[i]) {
+            // Odd man out: promote automatically
+            nextPairs.push([currentWinners[i], null]); // Using null as a placeholder or to handle in UI
           }
         }
         setHistory(h => [...h, currentWinners]);
@@ -98,12 +116,15 @@ function App() {
   useEffect(() => {
     let interval;
     if (gameState === 'pk' && !isProcessing) {
+      // Calculate decrement based on duration: 100% / duration / intervals_per_sec
+      // 50ms interval = 20 intervals per second
+      const step = 100 / (pkSettings.duration * 20);
       interval = setInterval(() => {
-        setCountdown(prev => Math.max(0, prev - 1.5));
+        setCountdown(prev => Math.max(0, prev - step));
       }, 50);
     }
     return () => clearInterval(interval);
-  }, [gameState, currentPairIndex, isProcessing]);
+  }, [gameState, currentPairIndex, isProcessing, pkSettings.duration]);
 
   // Trigger: Handles timeout selection
   useEffect(() => {
@@ -137,12 +158,9 @@ function App() {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setIsFoodManagerOpen(true)}
-            className="p-2 hover:bg-white/10 rounded-xl transition-colors text-secondary"
+            onClick={() => setIsConfigOpen(true)}
+            className="p-2 hover:bg-white/10 rounded-xl transition-colors text-primary"
           >
-            <Plus className="w-6 h-6" />
-          </button>
-          <button className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white/50">
             <Settings className="w-6 h-6" />
           </button>
         </div>
@@ -167,12 +185,12 @@ function App() {
               </p>
 
               <button
-                onClick={startPK}
+                onClick={() => setIsConfigOpen(true)}
                 className="group relative px-16 py-8 bg-primary rounded-[2rem] font-black text-3xl transition-all hover:scale-105 active:scale-95 shadow-[0_0_50px_rgba(139,92,246,0.4)]"
               >
                 <div className="absolute inset-0 bg-white/20 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity blur-2xl"></div>
-                <span className="relative flex items-center gap-4 uppercase italic">
-                  Start PK <Play className="w-8 h-8 fill-current" />
+                <span className="relative flex items-center gap-4 uppercase italic text-white">
+                  Prepare Battle <Play className="w-8 h-8 fill-current" />
                 </span>
               </button>
             </motion.div>
@@ -258,11 +276,13 @@ function App() {
           )}
         </AnimatePresence>
 
-        <FoodManager
-          isOpen={isFoodManagerOpen}
-          onClose={() => setIsFoodManagerOpen(false)}
-          foods={allFoods}
-          onSave={saveFoods}
+        <ConfigCenter
+          isOpen={isConfigOpen}
+          onClose={() => setIsConfigOpen(false)}
+          library={allFoods}
+          activeList={activePKList}
+          settings={pkSettings}
+          onSave={handleConfigSave}
         />
       </main>
 
