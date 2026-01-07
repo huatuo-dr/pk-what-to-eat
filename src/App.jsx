@@ -137,11 +137,11 @@ function App() {
   }, [countdown, gameState, isProcessing, currentPairIndex, currentRound, handleSelect]);
 
   const getRoundName = (count) => {
-    if (count === 8) return "Sweet 16";
-    if (count === 4) return "Elite Eight";
-    if (count === 2) return "Final Four";
-    if (count === 1) return "Championship";
-    return "Qualifiers";
+    if (count === 8) return "16 强赛";
+    if (count === 4) return "8 强赛";
+    if (count === 2) return "半决赛";
+    if (count === 1) return "总决赛";
+    return "预选赛";
   };
 
   return (
@@ -160,6 +160,7 @@ function App() {
           <button
             onClick={() => setIsConfigOpen(true)}
             className="p-2 hover:bg-white/10 rounded-xl transition-colors text-primary"
+            title="配置中心"
           >
             <Settings className="w-6 h-6" />
           </button>
@@ -178,10 +179,10 @@ function App() {
               className="text-center"
             >
               <h2 className="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-br from-primary via-accent to-secondary drop-shadow-sm leading-tight">
-                纠结星人的<br />终极救星 🚀
+                不知道吃什么？🚀
               </h2>
               <p className="text-white/40 text-lg mb-12 max-w-sm mx-auto uppercase tracking-[0.2em] font-bold">
-                Decision Maker for Foodies
+                吃货的决策神器
               </p>
 
               <button
@@ -190,7 +191,7 @@ function App() {
               >
                 <div className="absolute inset-0 bg-white/20 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity blur-2xl"></div>
                 <span className="relative flex items-center gap-4 uppercase italic text-white">
-                  Prepare Battle <Play className="w-8 h-8 fill-current" />
+                  开始对决 <Play className="w-8 h-8 fill-current" />
                 </span>
               </button>
             </motion.div>
@@ -225,7 +226,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center flex flex-col items-center"
             >
-              <div className="text-primary font-black uppercase tracking-[0.3em] mb-4">The Winner is</div>
+              <div className="text-primary font-black uppercase tracking-[0.3em] mb-4">本次对决的赢家是</div>
 
               <div
                 className="w-64 h-64 md:w-80 md:h-80 rounded-[3rem] flex items-center justify-center text-9xl shadow-2xl mb-8 neon-border relative animate-bounce"
@@ -247,13 +248,13 @@ function App() {
                   onClick={() => setGameState('home')}
                   className="flex items-center gap-2 px-8 py-4 glass rounded-2xl font-bold hover:bg-white/10 transition-colors uppercase italic"
                 >
-                  <RefreshCw className="w-5 h-5" /> Back to Start
+                  <RefreshCw className="w-5 h-5" /> 返回首页
                 </button>
                 <button
                   onClick={() => setIsShareMode(true)}
                   className="flex items-center gap-2 px-8 py-4 bg-accent rounded-2xl font-black hover:scale-105 transition-all uppercase italic shadow-[0_0_20px_rgba(244,114,182,0.4)]"
                 >
-                  <Share2 className="w-5 h-5" /> Share Result
+                  <Share2 className="w-5 h-5" /> 分享战报
                 </button>
               </div>
             </motion.div>
@@ -288,7 +289,7 @@ function App() {
 
       {/* Footer */}
       <footer className="p-6 text-center text-white/10 text-xs font-bold uppercase tracking-[0.5em]">
-        Dopamine Decision Engine v1.0
+        多巴胺决策引擎 v1.0
       </footer>
     </div>
   )

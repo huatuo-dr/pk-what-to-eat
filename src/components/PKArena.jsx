@@ -8,7 +8,7 @@ export function PKArena({ roundData, onSelect, countdownProgress }) {
         return (
             <div className="flex items-center justify-center min-h-[500px]">
                 <div className="text-2xl font-black italic animate-pulse text-white/20 uppercase tracking-widest">
-                    Loading Next Match...
+                    准备下一场...
                 </div>
             </div>
         );
@@ -25,7 +25,7 @@ export function PKArena({ roundData, onSelect, countdownProgress }) {
                         {currentRoundName}
                     </span>
                     <h2 className="text-2xl font-black italic">
-                        MATCH {currentPairIndex + 1} / {totalPairs}
+                        第 {currentPairIndex + 1} / {totalPairs} 场
                     </h2>
                 </div>
 
@@ -33,7 +33,7 @@ export function PKArena({ roundData, onSelect, countdownProgress }) {
                 <div className="flex flex-col items-end gap-2">
                     <div className="flex items-center gap-2 text-accent font-black italic">
                         <Timer className="w-5 h-5 animate-pulse" />
-                        DECIDE NOW!
+                        立即选择！
                     </div>
                     <div className="w-48 h-3 bg-white/10 rounded-full overflow-hidden border border-white/5">
                         <motion.div

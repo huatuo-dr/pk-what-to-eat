@@ -76,10 +76,10 @@ export function ResultShare({ winner, history, onBack }) {
                         {/* Poster Header */}
                         <div className="text-center mb-8">
                             <div className="inline-block px-4 py-1.5 bg-primary/20 rounded-full text-[10px] font-black tracking-[0.5em] uppercase text-primary border border-primary/20 mb-3">
-                                Battle Report
+                                对决报告
                             </div>
                             <h1 className="text-6xl font-black italic neon-text uppercase leading-none tracking-tighter">
-                                Divine <span className="text-accent">Decision</span>
+                                天选 <span className="text-accent">之食</span>
                             </h1>
                         </div>
 
@@ -125,11 +125,11 @@ export function ResultShare({ winner, history, onBack }) {
                         {/* Footer / QR Style */}
                         <div className="mt-8 pt-6 border-t border-white/5 flex justify-between items-end">
                             <div className="space-y-1.5">
-                                <div className="text-sm font-black italic text-secondary tracking-[0.2em] uppercase">PK WHAT TO EATER</div>
-                                <div className="text-[8px] text-white/30 font-bold">BY DOPAMINE DECISION ENGINE // VERSION 2.0</div>
+                                <div className="text-sm font-black italic text-secondary tracking-[0.2em] uppercase">今天吃什么 PK 赛</div>
+                                <div className="text-[8px] text-white/30 font-bold">由多巴胺决策引擎驱动 // 版本 2.0</div>
                             </div>
                             <div className="text-[8px] text-white/20 text-right uppercase font-mono italic">
-                                SESSION IDENTIFIER // {Math.random().toString(36).substring(7).toUpperCase()}
+                                会话标识 // {Math.random().toString(36).substring(7).toUpperCase()}
                             </div>
                         </div>
                     </div>
@@ -142,13 +142,13 @@ export function ResultShare({ winner, history, onBack }) {
                     onClick={handleDownload}
                     className="flex items-center gap-2 px-10 py-5 bg-primary rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-xl"
                 >
-                    <Download className="w-6 h-6" /> SAVE TO PHOTO
+                    <Download className="w-6 h-6" /> 保存海报
                 </button>
                 <button
                     onClick={onBack}
                     className="flex items-center gap-2 px-10 py-5 glass rounded-2xl font-bold text-xl hover:bg-white/10 transition-all uppercase italic"
                 >
-                    BACK
+                    返回
                 </button>
             </div>
         </div>

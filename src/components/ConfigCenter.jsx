@@ -71,7 +71,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                     <Edit3 className="w-6 h-6 text-primary" />
                                 </div>
                                 <h2 className="text-3xl font-black italic neon-text uppercase leading-none">
-                                    Strategic <span className="text-accent">Hub</span>
+                                    决策 <span className="text-accent">中心</span>
                                 </h2>
                             </div>
                             <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-xl transition-colors">
@@ -85,7 +85,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                             <div className="w-full md:w-80 border-r border-white/5 p-8 space-y-10 overflow-y-auto bg-white/[0.02]">
                                 <section className="space-y-6">
                                     <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] flex items-center gap-2">
-                                        <Users className="w-4 h-4" /> PK Scale
+                                        <Users className="w-4 h-4" /> 对决规模
                                     </h3>
                                     <div className="grid grid-cols-3 gap-2">
                                         {[4, 8, 16].map(s => (
@@ -108,9 +108,9 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                 <section className="space-y-6">
                                     <div className="flex justify-between items-center">
                                         <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] flex items-center gap-2">
-                                            <Timer className="w-4 h-4" /> Speed Limit
+                                            <Timer className="w-4 h-4" /> 决策速度
                                         </h3>
-                                        <span className="text-primary font-black italic">{localSettings.duration}s</span>
+                                        <span className="text-primary font-black italic">{localSettings.duration} 秒</span>
                                     </div>
                                     <input
                                         type="range" min="3" max="10"
@@ -119,8 +119,8 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                         className="w-full accent-primary bg-white/5 h-2 rounded-lg"
                                     />
                                     <div className="flex justify-between text-[10px] uppercase font-bold text-white/20">
-                                        <span>3s (Aggressive)</span>
-                                        <span>10s (Casual)</span>
+                                        <span>3s (激进)</span>
+                                        <span>10s (佛系)</span>
                                     </div>
                                 </section>
 
@@ -129,7 +129,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                     className="w-full py-5 bg-accent/20 border border-accent/30 text-accent rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-accent/30 transition-all group"
                                 >
                                     <Shuffle className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
-                                    RANDOMIZE SLOTS
+                                    随机抽取
                                 </button>
                             </div>
 
@@ -138,7 +138,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                 {/* Workbench Header: Active List grid */}
                                 <div className="p-8 space-y-4 bg-white/[0.01]">
                                     <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em]">
-                                        Active Battle Grid ({localActiveList.length}/{localSettings.size})
+                                        当前对阵名单 ({localActiveList.length}/{localSettings.size})
                                     </h3>
                                     <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-2">
                                         {Array.from({ length: localSettings.size }).map((_, i) => {
@@ -173,9 +173,9 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                         <div className="space-y-6">
                                             <div className="flex justify-between items-center bg-primary/5 p-4 rounded-2xl border border-primary/10">
                                                 <h3 className="text-primary font-black uppercase text-sm tracking-widest italic">
-                                                    Replacing Slot #{editingIndex + 1}
+                                                    槽位替换 #{editingIndex + 1}
                                                 </h3>
-                                                <button onClick={() => setEditingIndex(null)} className="px-4 py-1 bg-white/10 rounded-lg text-[10px] font-black uppercase text-white/50 hover:bg-white/20 transition-colors">Cancel</button>
+                                                <button onClick={() => setEditingIndex(null)} className="px-4 py-1 bg-white/10 rounded-lg text-[10px] font-black uppercase text-white/50 hover:bg-white/20 transition-colors">取消</button>
                                             </div>
                                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                                                 {localLibrary.map(f => (
@@ -194,7 +194,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                         <div className="space-y-12">
                                             {/* Add New */}
                                             <div className={cn("glass p-6 rounded-[2.5rem] border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-inner relative transition-all", isEmojiPickerOpen && "z-30")}>
-                                                <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] mb-4">Laboratory: Create New</h3>
+                                                <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em] mb-4">实验室：添加食物</h3>
                                                 <div className="flex flex-col md:flex-row gap-6 relative">
                                                     {/* Custom Dropdown Emoji Picker */}
                                                     <div className="relative w-full md:w-32">
@@ -218,7 +218,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                                                     className="absolute top-full left-0 mt-2 w-64 h-64 bg-[#1a1f2e] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 p-3 overflow-hidden flex flex-col"
                                                                 >
                                                                     <div className="flex justify-between items-center mb-2 px-1 text-white">
-                                                                        <span className="text-[10px] font-black uppercase text-white/30">Select Icon</span>
+                                                                        <span className="text-[10px] font-black uppercase text-white/30">选择图标</span>
                                                                         <button onClick={() => setIsEmojiPickerOpen(false)}><X className="w-3 h-3 text-white/20" /></button>
                                                                     </div>
                                                                     <div className="flex-1 overflow-y-auto custom-scrollbar grid grid-cols-5 gap-1 text-white">
@@ -245,14 +245,14 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                                         <input
                                                             type="text" value={newFood.name}
                                                             onChange={(e) => setNewFood(p => ({ ...p, name: e.target.value }))}
-                                                            placeholder="Food Molecule Name..."
+                                                            placeholder="输入食物名称..."
                                                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 font-black text-lg focus:outline-none focus:border-primary transition-all placeholder:text-white/10 text-white"
                                                         />
                                                         <button
                                                             onClick={handleAddCustom}
                                                             className="w-full bg-primary hover:bg-primary/80 py-4 rounded-2xl font-black italic uppercase shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2"
                                                         >
-                                                            <Plus className="w-5 h-5" /> Synthesize Food
+                                                            <Plus className="w-5 h-5" /> 合成食物
                                                         </button>
                                                     </div>
                                                 </div>
@@ -261,7 +261,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                             {/* Master Inventory */}
                                             <div className="space-y-6">
                                                 <div className="flex justify-between items-end">
-                                                    <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em]">Master Inventory ({localLibrary.length})</h3>
+                                                    <h3 className="text-xs font-black uppercase text-white/30 tracking-[0.3em]">我的食物库 ({localLibrary.length})</h3>
                                                 </div>
                                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pb-8">
                                                     {localLibrary.map(f => (
@@ -285,7 +285,7 @@ export function ConfigCenter({ isOpen, onClose, library, activeList, settings, o
                                 onClick={() => onSave({ library: localLibrary, activeList: localActiveList, settings: localSettings })}
                                 className="flex-1 bg-primary hover:bg-primary/80 py-6 rounded-[2rem] font-black text-2xl flex items-center justify-center gap-4 transition-all active:scale-95 shadow-[0_0_50px_rgba(139,92,246,0.3)] shadow-primary/20 animate-pulse-slow"
                             >
-                                GO BATTLE! <ChevronRight className="w-8 h-8" />
+                                启动派对！ <ChevronRight className="w-8 h-8" />
                             </button>
                         </div>
                     </motion.div>
