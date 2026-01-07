@@ -15,8 +15,8 @@ export function PKCard({ food, onClick, isWinner, isLoser, side }) {
             className={cn(
                 "relative flex flex-col items-center justify-center p-8 rounded-[2rem] cursor-pointer transition-all duration-500",
                 "glass hover:bg-white/10 active:bg-white/20",
-                isWinner && "ring-8 ring-success shadow-[0_0_50px_rgba(16,185,129,0.5)] z-20 scale-110",
-                isLoser && "opacity-30 grayscale scale-90"
+                isWinner && "ring-8 ring-success shadow-[0_0_50px_rgba(16,185,129,0.8)] z-20 scale-125 animate-winner-glow border-success",
+                isLoser && "opacity-20 grayscale brightness-50 scale-75 rotate-3 -translate-y-4"
             )}
         >
             <div

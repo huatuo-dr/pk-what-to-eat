@@ -2,22 +2,31 @@
 
 @theme {
   /* Dopamine Colors */
-  --color-primary: #8b5cf6;    /* Electric Violet */
-  --color-secondary: #06b6d4;  /* Cyan */
-  --color-accent: #f472b6;     /* Neon Pink */
-  --color-bg-dark: #0f172a;    /* Navy Blue (Dark bg) */
-  --color-success: #10b981;    /* Emerald */
-  --color-warning: #f59e0b;    /* Amber */
+  --color-primary: #8b5cf6;
+  /* Electric Violet */
+  --color-secondary: #06b6d4;
+  /* Cyan */
+  --color-accent: #f472b6;
+  /* Neon Pink */
+  --color-bg-dark: #0f172a;
+  /* Navy Blue (Dark bg) */
+  --color-success: #10b981;
+  /* Emerald */
+  --color-warning: #f59e0b;
+  /* Amber */
 
   --font-sans: "Inter", "system-ui", "-apple-system", sans-serif;
-  
+
   --animate-bounce-custom: bounce-custom 1s infinite;
-  
+
   @keyframes bounce-custom {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(-5%) scale(1.05);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
+
     50% {
       transform: translateY(0) scale(1);
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -58,4 +67,42 @@ body {
 
 .neon-text {
   text-shadow: 0 0 10px var(--color-primary);
+}
+
+/* 
+ * Dopamine Effects
+ */
+
+/* Particle Burst Animation */
+@keyframes particle-burst {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) scale(0);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation: particle-burst 0.8s ease-out forwards;
+}
+
+/* Winner Pulse Glow */
+@keyframes winner-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--color-primary), 0 0 40px var(--color-primary);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--color-primary), 0 0 80px var(--color-primary);
+  }
+}
+
+.animate-winner-glow {
+  animation: winner-glow 1.5s infinite;
 }

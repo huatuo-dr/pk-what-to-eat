@@ -25,6 +25,7 @@ function App() {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isShareMode, setIsShareMode] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedFoodId, setSelectedFoodId] = useState(null);
 
   // Load from LocalStorage
   useEffect(() => {
@@ -76,40 +77,45 @@ function App() {
     if (!selectedFood || isProcessing) return;
 
     setIsProcessing(true);
-    const currentWinners = [...nextRoundWinners, selectedFood];
-    const isRoundOver = currentWinners.length === currentRound.length;
+    setSelectedFoodId(selectedFood.id);
 
-    if (!isRoundOver) {
-      setNextRoundWinners(currentWinners);
-      setCurrentPairIndex(prev => prev + 1);
-      setCountdown(100);
-      setTimeout(() => setIsProcessing(false), 400); // Guard to prevent rapid clicks
-    } else {
-      // Prepare next round or finish
-      if (currentWinners.length === 1) {
-        setWinner(currentWinners[0]);
-        setHistory(h => [...h, currentWinners]);
-        setGameState('result');
-        setIsProcessing(false);
-      } else {
-        const nextPairs = [];
-        // Support odd number of foods by promoting the last person automatically
-        for (let i = 0; i < currentWinners.length; i += 2) {
-          if (currentWinners[i] && currentWinners[i + 1]) {
-            nextPairs.push([currentWinners[i], currentWinners[i + 1]]);
-          } else if (currentWinners[i]) {
-            // Odd man out: promote automatically
-            nextPairs.push([currentWinners[i], null]); // Using null as a placeholder or to handle in UI
-          }
-        }
-        setHistory(h => [...h, currentWinners]);
-        setCurrentRound(nextPairs);
-        setNextRoundWinners([]);
-        setCurrentPairIndex(0);
+    // Wait for the cool animations to play
+    setTimeout(() => {
+      const currentWinners = [...nextRoundWinners, selectedFood];
+      const isRoundOver = currentWinners.length === currentRound.length;
+
+      if (!isRoundOver) {
+        setNextRoundWinners(currentWinners);
+        setCurrentPairIndex(prev => prev + 1);
         setCountdown(100);
-        setTimeout(() => setIsProcessing(false), 800); // Longer wait for round transition
+        setSelectedFoodId(null);
+        setTimeout(() => setIsProcessing(false), 200);
+      } else {
+        if (currentWinners.length === 1) {
+          setWinner(currentWinners[0]);
+          setHistory(h => [...h, currentWinners]);
+          setGameState('result');
+          setSelectedFoodId(null);
+          setIsProcessing(false);
+        } else {
+          const nextPairs = [];
+          for (let i = 0; i < currentWinners.length; i += 2) {
+            if (currentWinners[i] && currentWinners[i + 1]) {
+              nextPairs.push([currentWinners[i], currentWinners[i + 1]]);
+            } else if (currentWinners[i]) {
+              nextPairs.push([currentWinners[i], null]);
+            }
+          }
+          setHistory(h => [...h, currentWinners]);
+          setCurrentRound(nextPairs);
+          setNextRoundWinners([]);
+          setCurrentPairIndex(0);
+          setCountdown(100);
+          setSelectedFoodId(null);
+          setTimeout(() => setIsProcessing(false), 400);
+        }
       }
-    }
+    }, 800); // 800ms for animations
   }, [currentRound, nextRoundWinners, isProcessing]);
 
   // Timer: Just handles the progress bar
@@ -215,6 +221,7 @@ function App() {
                 } : null}
                 onSelect={handleSelect}
                 countdownProgress={countdown}
+                selectedFoodId={selectedFoodId}
               />
             </motion.div>
           )}
